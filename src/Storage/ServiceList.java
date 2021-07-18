@@ -18,13 +18,26 @@ import java.util.Collections;
  */
 public class ServiceList {
     ArrayList<Service> list;
-
+    Service s;
     public ServiceList() {
         list = new ArrayList<>();
     }
     
-    public boolean addService(Service s) {
-        return list.add(s);
+    public void addService() {
+       int pos, id, price;
+       String name, address;
+       do{
+           id = MyToys.getAnInteger("Input Service id: ", "Service id is required!!", 0);
+           pos = findService(id);
+           s = searchService(id);
+           if(pos >= 0) 
+               System.out.println("Service id already exist!! Please input again!");
+           }while(pos != -1);
+           name = MyToys.getAString("Input Service name: ", "Service name is required!!");
+           price = MyToys.getAnInteger("Input Service price: ", "Input a positive integer!!", 0);
+           
+           list.add(new Service(id, name, price));
+           System.out.println("=>>> Add Service successfully!! <<<=");
     }
     
     public int findService(int id) {
@@ -44,14 +57,25 @@ public class ServiceList {
     }
            
     
-    public boolean updateService(int id) {
-        Service s = searchService(id);
-        if(s == null) 
-            return false;
-        s.setId(MyToys.getAnInteger("Input new ID: ", "Invalid format!!"));
-        s.setName(MyToys.getAString("Input new Name: ", "Invalid format!!"));
-        s.setPrice(MyToys.getAnInteger("Input new Price: ", "Invalid format!!"));
-        return true;
+    public void updateService() {
+        int pos, id;
+        if (list.isEmpty()) {
+            System.out.println("Service List is empty!!");
+            return;
+        }
+        do {
+            id = MyToys.getAnInteger("Input Service ID to update: ", "Input a possitive integer!", 0);
+            pos = findService(id);
+            s = searchService(id);
+            if (pos == -1) {
+                System.out.println("Service id not exist!! Please input again!");
+            }
+        } while (pos == -1);
+        
+        s.setName(MyToys.getAString("Input new Service name: ", "Service name is required!!"));
+        s.setPrice(MyToys.getAnInteger("Input new Service price: ", "Input a positive integer!!", 0));
+        System.out.println("=>>> Update Service successfully <<<=");
+        s.output();
     }
     
     public boolean removeService(int id) {

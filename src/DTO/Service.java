@@ -54,12 +54,17 @@ public class Service implements Comparable<Service> {
     public void setPrice(int price) {
         this.price = price;
     }
-    
-    public void input() {
-        id = MyToys.getAnInteger("Input ID of Service: ", "Invalid format!!");
-        name = MyToys.getAString("Input name of Service: ", "Invalid format!!");
-        price = MyToys.getAnInteger("Input price of Service: ", "Invalid format!!");
+
+    public Pet getPet() {
+        return pet;
     }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+    
+    
+    
     
      public void output(){
          System.out.printf("|SERVICE |ID: %5s|NAME: %15s|PRICE: %8d|\n",

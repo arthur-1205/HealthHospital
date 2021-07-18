@@ -10,20 +10,20 @@ import Storage.OwnerList;
 import Storage.PetList;
 import Storage.ServiceList;
 
-public class Health {
+public class Hospital {
 
     public static void main(String[] args) {
 
         PetList petList = new PetList();
         OwnerList ownerList = new OwnerList();
         ServiceList serviceList = new ServiceList();
-        LogList logList = new LogList();
+        LogList logList = new LogList();   
         
-        Pet p = new Pet();
+        Pet p;
+        Owner o;
         int choice = 0;
-
-        System.out.println("==========Welcome to DoanAnh's Pet Service==========");
         do {
+            System.out.println("==========Welcome to DoanAnh's Pet Service==========");
             System.out.println("1. Manage Pet list");
             System.out.println("2. Manage Owner list");
             System.out.println("3. Manage Service list");
@@ -47,39 +47,13 @@ public class Health {
                                 0, 5);
                         switch (choice1) {
                             case 1:
-                                
-                               
+                                petList.addPet();
                                 break;
                             case 2:
-                                if (petList.isEmpty()) {
-                                    System.out.println(" =>>>> No Pet has been added yet!!"
-                                            + " Please input Pet first! <<<<=");
-                                    break;
-                                }
-                                else
-                                System.out.println("Input Pet ID need to update: ");
-                                int id = MyToys.getAnInteger("Invalid format!");
-                                if (petList.updatePet(id)) {
-                                    System.out.println("=>>>> Update success! <<<<=");
-                                } else {
-                                    System.out.println("=>>>> Update fail! Pet ID does not exist! <<<<=");
-                                }
-                                
+                                petList.updatePet();
                                 break;
                             case 3:
-                                if(petList.isEmpty()){
-                                    System.out.println("=>>>> No Pet has been added yet!"
-                                            + "  Please input Pet first!! <<<<=");
-                                    break;
-                                }
-                                System.out.println("Input Pet ID need to remove: ");
-                                id = MyToys.getAnInteger("Invalid format!!");
-                                if (petList.removePet(id)) {
-
-                                    System.out.println("=>>>> Remove success <<<<=");
-                                } else {
-                                    System.out.println("=>>>> Remove fail! Service ID does not exist! <<<<=");
-                                }
+                                petList.removePet();
                                 break;
                             case 4:
                                 if(petList.isEmpty()){
@@ -107,36 +81,17 @@ public class Health {
                                 0, 5);
                         switch (choice2) {
                             case 1:
-                                Owner o = new Owner();
-                                o.input();
-                                if (ownerList.findOwner(o.getId()) >= 0) {
-                                    System.out.println("=>>>> Owner already exists. Add fail!! <<<<=");
-                                } else {
-                                    ownerList.addOwner(o);
-                                    System.out.println("=>>>> Add Owner successfully!! <<<<=");
-                                }
+                                ownerList.addOwner();
                                 break;
                             case 2:
-                                if (ownerList.isEmpty()) {
-                                    System.out.println(" =>>>> No Owner has been added yet!"
-                                            + "  Please input Owner first!! <<<<=");
-                                } else {
-                                    System.out.println("Input Owner ID need to update: ");
-                                    String id = MyToys.getAString("Invalid format!");
-                                    if (ownerList.updateOwner(id)) {
-                                        System.out.println("=>>>> Update Owner succesfully <<<<=");
-                                    } else {
-                                        System.out.println("=>>>> Update fail! Owner ID does not exist!! <<<<=");
-                                    }
-                                }
+                                ownerList.updateOwner();
                                 break;
                             case 3:
                                 if (ownerList.isEmpty()) {
                                     System.out.println(" =>>>> No Owner has been added yet!"
                                             + "  Please input Owner first!! <<<<<=");
                                 }
-                                System.out.println("Input ID of Owner to remove: ");
-                                String id = MyToys.getAString("Invalid format!");
+                                String id = MyToys.getAString("Input ID of Owner to remove: ", "Invalid format!");
                                 if (ownerList.removeOwner(id)) {
                                     petList.checkPetWOwner(id);
                                     System.out.println("=>>>> Remove Owner successfully <<<<=");
@@ -172,28 +127,10 @@ public class Health {
                                 0, 5);
                         switch (choice3) {
                             case 1:
-                                Service s = new Service();
-                                s.input();
-                                if (serviceList.findService(s.getId()) >= 0) {
-                                    System.out.println("=>>>> Add fail!! Service is already exist!! <<<<=");
-                                } else {
-                                    serviceList.addService(s);
-                                    System.out.println("=>>>> Add success! <<<<=");
-                                }
+                                serviceList.addService();
                                 break;
                             case 2:
-                                if (serviceList.isEmpty()) {
-                                    System.out.println(" =>>>> No service has been added yet!!"
-                                            + "  Please input Service firsr!! <<<<=");
-                                    break;
-                                }
-                                System.out.println("Input Service ID need update: ");
-                                int nId = MyToys.getAnInteger("Invalid format!");
-                                if (serviceList.updateService(nId)) {
-                                    System.out.println("=>>>> Update success <<<<=");
-                                } else {
-                                    System.out.println("=>>>> Update fail! Service id not exist! <<<<=");
-                                }
+                                serviceList.updateService();
                                 break;
                             case 3:
                                 if (serviceList.isEmpty()) {
@@ -241,7 +178,7 @@ public class Health {
                                     int petid = MyToys.getAnInteger("Input Pet id to set relationship: ","Invalid format!");
                                     String ownerid = MyToys.getAString("Input Owner id to set relationship: ", "Invalid format!!");
                                     p = petList.searchPet(petid);
-                                    Owner o = ownerList.searchOwner(ownerid);
+                                    o = ownerList.searchOwner(ownerid);
                                     if (p.getOwner() != null) {
                                         System.out.println("=>>> Pet already has Owner!! <<<=");
                                     } else if (p != null && o != null) {
@@ -337,7 +274,7 @@ public class Health {
                             case 2:
                                 if (logList.isEmpty()) {
                                     System.out.println(" =>>>>> No Log has been added yet!!"
-                                            + "  Please input Log firsr!! <<<<<=");
+                                            + "  Please input Log first!! <<<<<=");
                                     break;
                                 }
                                 petId = MyToys.getAnInteger("Input Pet ID need to update Log: ", "Invalid format!!");
@@ -366,7 +303,7 @@ public class Health {
                             case 3:
                                 if (logList.isEmpty()) {
                                     System.out.println(" =>>>>> No Log has been added yet!!"
-                                            + "  Please input Log firsr!! <<<<<=");
+                                            + "  Please input Log first!! <<<<<=");
                                     break;
                                 }
                                 petId = MyToys.getAnInteger("Input Pet ID to remove Log: ", "Invalid format!!");
@@ -397,7 +334,7 @@ public class Health {
                             case 5:
                                 if(logList.isEmpty()) {
                                      System.out.println(" =>>>> No Log has been added yet!!"
-                                            + "  Please input Log firsr!! <<<<=");
+                                            + "  Please input Log first!! <<<<=");
                                      break;
                                 }
                                 System.out.println("Total Money of Pet: ");
